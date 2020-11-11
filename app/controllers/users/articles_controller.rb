@@ -31,6 +31,14 @@ class Users::ArticlesController < ApplicationController
     render json: @article, status: 200
   end
 
+  def destroy
+    if @article.destroy
+      render json: { 'message': 'The article was deleted succesfully' }, status: 200
+    else
+      render json: @article.errors, status: 422
+    end
+  end
+
   def article_params
     params.require(:article).permit(:articleText, :user_id, :article_id)
   end
